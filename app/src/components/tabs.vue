@@ -3,16 +3,17 @@
     <div>
         <nav class="nav-tab-wrapper">
             <a v-for="tab in tabs"
-               :key="tab.id"
+               :key="tab.name"
                class="nav-tab"
-               :class="{ 'nav-tab-active' : tab.isActive }"
-               @click="selectTab(tab.id)"
+               :class="{ 'nav-tab-active': selected.name === tab.name }"
+               @click.prevent="selectTab(tab)"
+               href="#"
             >
                 <span v-if="tab.icon" :class="`dashicons dashicons-${tab.icon}`"></span>
                 {{ tab.title }}
             </a>
         </nav>
-        <slot></slot>
+        <component :is="selected.component"></component>
     </div>
 
 </template>
@@ -28,10 +29,15 @@
 		 *
 		 * @returns {object}
 		 */
-		data() {
-			return {
-				tabs: [],
-			}
+		props: {
+			current: {
+				type: Number,
+				required: true,
+			},
+			tabs: {
+				type: Array,
+				required: true,
+			},
 		},
 
 		/**
@@ -41,8 +47,10 @@
 		 *
 		 * @returns {object}
 		 */
-		created() {
-			this.tabs = this.$children
+		data() {
+			return {
+                selected: this.current,
+			}
 		},
 
 		methods: {
@@ -51,17 +59,15 @@
 			 *
 			 * Alter messages uses WP's admin notice classes.
 			 *
-			 * @param {string} selected Tab key to select.
+			 * @param {object} tab Tab key to select.
 			 *
 			 * @since 4.0.0
 			 *
 			 * @returns {boolean}
 			 */
-			selectTab( selected ) {
-				this.tabs.forEach( tab => {
-					tab.isActive = ( tab.id === selected );
-				} );
-			}
+			selectTab( tab ) {
+				this.selected = tab
+			},
 		}
 	}
 </script>

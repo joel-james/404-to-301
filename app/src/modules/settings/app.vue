@@ -5,21 +5,7 @@
             <p>{{ alert }}</p>
         </div>
 
-        <tabs selected="general">
-            <tab key="general"
-                 :title="$i18n.settings.titles.general"
-                 icon="admin-generic"
-                 :selected="true"
-            >
-                <general/>
-            </tab>
-            <tab key="email"
-                 :title="$i18n.settings.titles.email"
-                 icon="email"
-            >
-                <email/>
-            </tab>
-        </tabs>
+        <tabs :tabs="tabs" :current="tabs[0]"/>
 
     </div>
 </template>
@@ -27,8 +13,7 @@
 <script>
 	import Email from './tabs/email'
 	import General from './tabs/general'
-	import Tab from '@/components/settings-tabs/tab'
-	import Tabs from '@/components/settings-tabs/tabs'
+	import Tabs from '@/components/tabs'
 
 	export default {
 
@@ -39,7 +24,7 @@
 		 */
 		name: 'App',
 
-		components: { Tab, Tabs, General, Email },
+		components: { Tabs, General, Email },
 
 		/**
 		 * Get the default set of data for the template.
@@ -53,9 +38,20 @@
 				alert: false,
 				alertType: 'success',
 				tab: 'general',
-                tabs: {
-					component: ''
-                }
+				tabs: [
+					{
+						name: 'general',
+						icon: 'admin-generic',
+						title: this.$i18n.settings.titles.general,
+						component: General
+					},
+					{
+						name: 'email',
+						icon: 'email',
+						title: this.$i18n.settings.titles.email,
+						component: Email
+					},
+				]
 			}
 		},
 
