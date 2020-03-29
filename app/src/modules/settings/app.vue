@@ -53,6 +53,9 @@
 				alert: false,
 				alertType: 'success',
 				tab: 'general',
+                tabs: {
+					component: ''
+                }
 			}
 		},
 
