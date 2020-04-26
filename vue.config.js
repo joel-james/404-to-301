@@ -1,4 +1,8 @@
 const path = require( 'path' );
+const BrowserSync = require( 'browser-sync-webpack-plugin' );
+
+// Custom configuration
+const config = require( './.config.json' );
 
 // List of source files.
 const pages = {
@@ -58,7 +62,9 @@ module.exports = {
 		output: {
 			// Add .min to js files.
 			filename: 'js/[name].min.js',
-			chunkFilename: 'js/[name].min.js'
+			chunkFilename: 'js/[name].min.js',
+			hotUpdateChunkFilename: 'ot/hot-update.js',
+			hotUpdateMainFilename: 'hot/hot-update.json'
 		},
 
 		performance: {
@@ -69,6 +75,21 @@ module.exports = {
 			splitChunks: {
 				minSize: 1
 			}
-		}
+		},
+
+		plugins: [
+			new BrowserSync( {
+				reloadDelay: 0,
+				cors: true,
+				proxy: {
+					target: config.settingsUrl
+				}
+			} )
+		]
 	},
+
+	devServer: {
+		hot: false,
+		liveReload: false
+	}
 };

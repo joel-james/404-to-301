@@ -1,58 +1,57 @@
 <template>
-    <p class="search-box">
-        <label class="screen-reader-text"
-               :for="id"
-        >
-            {{ label || $i18n.labels.search }}:
-        </label>
+	<p class="search-box">
+		<label class="screen-reader-text" :for="id">{{ label || $i18n.labels.search }}:</label>
 
-        <input type="search"
-               :id="id"
-               v-model="search"
-               @change="handleInput"
-        />
-        <button type="button"
-                class="button"
-                @click="doSearch"
-        >
-            {{ label }}
-        </button>
-    </p>
+		<input type="search" :id="id" v-model="search" @change="handleInput" />
+		<button type="button" class="button" @click="doSearch">{{ label }}</button>
+	</p>
 </template>
 
 <script>
+export default {
+	name: 'SearchBox',
 
-	export default {
-		name: 'SearchBox',
-
-		props: {
-			id: {
-				type: String,
-				required: true
-			},
-			label: {
-				type: String,
-			},
-			value: {
-				type: String,
-			}
+	props: {
+		id: {
+			type: String,
+			required: true
 		},
-
-		data() {
-			return {
-				search: this.value,
-			}
+		label: {
+			type: String
 		},
-
-		methods: {
-			doSearch() {
-				this.$emit( 'submitSearch', this.id );
-			},
-
-			handleInput() {
-				this.$emit( 'input', this.search );
-			}
+		value: {
+			type: String
 		}
-	};
-</script>
+	},
 
+	data() {
+		return {
+			search: this.value
+		}
+	},
+
+	methods: {
+		/**
+		 * Perform search action in table data.
+		 *
+		 * Emit a search event to parent component.
+		 *
+		 * @since 4.0.0
+		 */
+		doSearch() {
+			this.$emit('submitSearch', this.id)
+		},
+
+		/**
+		 * Handle input change event on search field.
+		 *
+		 * Update the model data.
+		 *
+		 * @since 4.0.0
+		 */
+		handleInput() {
+			this.$emit('input', this.search)
+		}
+	}
+}
+</script>

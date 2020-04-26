@@ -1,65 +1,65 @@
 {
-  "name": "404-to-301",
-  "version": "4.0.0-beta",
-  "description": "Automatically redirect all <strong>404 errors</strong> to any page using <strong>301 redirect for SEO</strong>. You can <strong>redirect and log</strong> every 404 errors. No more 404 errors in Webmaster tool.",
-  "author": {
-    "name": "Joel James",
-    "url": "https://duckdev.com"
-  },
-  "license": "GPL-2.0",
-  "private": true,
-  "main": "404-to-301.php",
-  "repository": "git+https://github.com/Joel-James/404-to-301.git",
-  "keywords": [
-    "404",
-    "301",
-    "302",
-    "307",
-    "not found",
-    "404 redirect",
-    "404 to 301",
-    "301 redirect",
-    "seo redirect",
-    "error redirect",
-    "404 seo",
-    "custom 404 page"
-  ],
-  "scripts": {
-    "watch": "clear && grunt clean:assets && vue-cli-service build --watch --no-clean",
-    "serve": "vue-cli-service serve --no-clean",
-    "compile": "clear && grunt clean:assets && vue-cli-service build --no-clean",
-    "translate": "clear && grunt translate",
-    "build": "clear && npm run compile && grunt prepare && grunt build"
-  },
-  "dependencies": {
-    "core-js": "^3.6.4",
-    "vue": "^2.6.11",
-    "vue-fragment": "^1.5.1"
-  },
-  "devDependencies": {
-    "@vue/cli": "^4.2.3",
-    "@vue/cli-plugin-babel": "^4.2.0",
-    "@vue/cli-plugin-router": "^4.2.0",
-    "@vue/cli-plugin-vuex": "^4.2.0",
-    "@vue/cli-service": "^4.2.0",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.1.2",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11",
-    "grunt": "^1.0.4",
-    "grunt-checktextdomain": "^1.0.1",
-    "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-compress": "^1.6.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-rename": "^0.2.0",
-    "grunt-phpunit": "^0.3.6",
-    "grunt-replace": "^1.0.1",
-    "grunt-search": "^0.1.8",
-    "grunt-wp-i18n": "^1.0.3",
-    "load-grunt-tasks": "^5.1.0",
-    "sprintf-js": "^1.1.2",
-    "@wordpress/api-fetch": "^3.11.0"
-  }
+	"name": "404-to-301",
+	"version": "4.0.0-beta",
+	"description": "Automatically redirect all <strong>404 errors</strong> to any page using <strong>301 redirect for SEO</strong>. You can <strong>redirect and log</strong> every 404 errors. No more 404 errors in Webmaster tool.",
+	"author": {
+		"name": "Joel James",
+		"url": "https://duckdev.com"
+	},
+	"license": "GPL-2.0",
+	"private": true,
+	"main": "404-to-301.php",
+	"repository": "git+https://github.com/Joel-James/404-to-301.git",
+	"keywords": [
+		"404",
+		"301",
+		"302",
+		"307",
+		"not found",
+		"404 redirect",
+		"404 to 301",
+		"301 redirect",
+		"seo redirect",
+		"error redirect",
+		"404 seo",
+		"custom 404 page"
+	],
+	"scripts": {
+		"serve": "clear && grunt clean:assets && vue-cli-service build --watch --mode development --no-clean",
+		"compile": "clear && grunt clean:assets && vue-cli-service build --no-clean",
+		"translate": "clear && grunt translate",
+		"build": "clear && npm run compile && grunt prepare && grunt build"
+	},
+	"dependencies": {
+		"core-js": "^3.6.4",
+		"vue": "^2.6.11",
+		"vue-fragment": "^1.5.1"
+	},
+	"devDependencies": {
+		"@vue/cli": "^4.2.3",
+		"@vue/cli-plugin-babel": "^4.2.0",
+		"@vue/cli-plugin-router": "^4.2.0",
+		"@vue/cli-plugin-vuex": "^4.2.0",
+		"@vue/cli-service": "^4.2.0",
+		"@wordpress/api-fetch": "^3.7.0",
+		"babel-eslint": "^10.0.3",
+		"browser-sync-webpack-plugin": "^2.2.2",
+		"clipboard": "^2.0.6",
+		"eslint": "^6.7.2",
+		"eslint-plugin-vue": "^6.2.2",
+		"grunt": "^1.0.4",
+		"grunt-checktextdomain": "^1.0.1",
+		"grunt-contrib-clean": "^2.0.0",
+		"grunt-contrib-compress": "^1.6.0",
+		"grunt-contrib-copy": "^1.0.0",
+		"grunt-phpunit": "^0.3.6",
+		"grunt-search": "^0.1.8",
+		"grunt-wp-i18n": "^1.0.3",
+		"load-grunt-tasks": "^5.1.0",
+		"node-sass": "^4.12.0",
+		"sass-loader": "^8.0.2",
+		"sprintf-js": "^1.1.2",
+		"vue-template-compiler": "^2.6.11",
+		"browser-sync": "^2.26.7"
+	}
 }

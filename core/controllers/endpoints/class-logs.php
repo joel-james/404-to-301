@@ -66,28 +66,28 @@ class Logs extends Endpoint {
 					'args'                => [
 						'search'   => [
 							'required'    => false,
-							'description' => __( 'String to search within error URLs.', 'ga_trans' ),
+							'description' => __( 'String to search within error URLs.', '404-to-301' ),
 							'type'        => 'string',
 						],
 						'status'   => [
 							'required'    => false,
-							'description' => __( 'The status of the log to get (1 default).', 'ga_trans' ),
+							'description' => __( 'The status of the log to get (1 default).', '404-to-301' ),
 							'type'        => 'integer',
 							'enum'        => [ 0, 1 ],
 						],
 						'page'     => [
 							'required'    => false,
-							'description' => __( 'Current page number (1 default).', 'ga_trans' ),
+							'description' => __( 'Current page number (1 default).', '404-to-301' ),
 							'type'        => 'integer',
 						],
 						'per_page' => [
 							'required'    => false,
-							'description' => __( 'Number of items per page (25 default).', 'ga_trans' ),
+							'description' => __( 'Number of items per page (25 default).', '404-to-301' ),
 							'type'        => 'integer',
 						],
 						'order'    => [
 							'required'    => false,
-							'description' => __( 'Sorting order (asc or desc).', 'ga_trans' ),
+							'description' => __( 'Sorting order (asc or desc).', '404-to-301' ),
 							'type'        => 'string',
 							'enum'        => [
 								'asc',
@@ -96,7 +96,7 @@ class Logs extends Endpoint {
 						],
 						'order_by' => [
 							'required'    => false,
-							'description' => __( 'A field to order the result.', 'ga_trans' ),
+							'description' => __( 'A field to order the result.', '404-to-301' ),
 							'type'        => 'string',
 							'enum'        => [
 								'date',
@@ -105,7 +105,7 @@ class Logs extends Endpoint {
 						],
 						'group_by' => [
 							'required'    => false,
-							'description' => __( 'A field to group the result.', 'ga_trans' ),
+							'description' => __( 'A field to group the result.', '404-to-301' ),
 							'type'        => 'string',
 							'enum'        => [
 								'', // Empty.
@@ -125,7 +125,7 @@ class Logs extends Endpoint {
 					'args'                => [
 						'ids' => [
 							'required'    => true,
-							'description' => __( 'The log ids to delete, separated by comma.', 'ga_trans' ),
+							'description' => __( 'The log ids to delete, separated by comma.', '404-to-301' ),
 							'type'        => 'array',
 						],
 					],
@@ -144,7 +144,7 @@ class Logs extends Endpoint {
 					'args'                => [
 						'id' => [
 							'required'    => true,
-							'description' => __( 'The log id to view.', 'ga_trans' ),
+							'description' => __( 'The log id to view.', '404-to-301' ),
 							'type'        => 'integer',
 						],
 					],
@@ -156,7 +156,7 @@ class Logs extends Endpoint {
 					'args'                => [
 						'id' => [
 							'required'    => true,
-							'description' => __( 'The log id to update.', 'ga_trans' ),
+							'description' => __( 'The log id to update.', '404-to-301' ),
 							'type'        => 'integer',
 						],
 					],
@@ -168,7 +168,7 @@ class Logs extends Endpoint {
 					'args'                => [
 						'id' => [
 							'required'    => true,
-							'description' => __( 'The log id to delete.', 'ga_trans' ),
+							'description' => __( 'The log id to delete.', '404-to-301' ),
 							'type'        => 'integer',
 						],
 					],

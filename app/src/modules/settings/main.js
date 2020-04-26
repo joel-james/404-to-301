@@ -9,7 +9,7 @@ Vue.prototype.$vars = window.dd4t3Vars;
 Vue.prototype.$moduleVars = window.dd4t3ModuleVars;
 
 /* eslint-disable no-new */
-new Vue( {
+new Vue({
 	el: '#dd404-settings-app',
-	render: h => h( App )
-} );
+	render: h => h(App)
+});

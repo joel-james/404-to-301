@@ -12,24 +12,24 @@ import apiFetch from '@wordpress/api-fetch'
  *
  * @return {string}
  **/
-export function restGet( options ) {
+export function restGet(options) {
 	options = options || {};
 
 	options.method = 'GET';
 
-	apiFetch.use( apiFetch.createNonceMiddleware( window.dd4t3Vars.rest_nonce ) );
-	apiFetch.use( apiFetch.createRootURLMiddleware( window.dd4t3Vars.rest_url ) );
+	apiFetch.use(apiFetch.createNonceMiddleware(window.dd4t3Vars.rest_nonce));
+	apiFetch.use(apiFetch.createRootURLMiddleware(window.dd4t3Vars.rest_url));
 
 	// Add param support.
-	if ( options.params ) {
+	if (options.params) {
 		const urlParams = new URLSearchParams(
-			Object.entries( options.params )
+			Object.entries(options.params)
 		);
 
 		options.path = options.path + '?' + urlParams;
 	}
 
-	return apiFetch( options );
+	return apiFetch(options);
 }
 
 /**
@@ -41,15 +41,15 @@ export function restGet( options ) {
  *
  * @return {string}
  **/
-export function restPost( options ) {
+export function restPost(options) {
 	options = options || {};
 
 	options.method = 'POST';
 
-	apiFetch.use( apiFetch.createNonceMiddleware( window.dd4t3Vars.rest_nonce ) );
-	apiFetch.use( apiFetch.createRootURLMiddleware( window.dd4t3Vars.rest_url ) );
+	apiFetch.use(apiFetch.createNonceMiddleware(window.dd4t3Vars.rest_nonce));
+	apiFetch.use(apiFetch.createRootURLMiddleware(window.dd4t3Vars.rest_url));
 
-	return apiFetch( options );
+	return apiFetch(options);
 }
 
 /**
@@ -61,13 +61,13 @@ export function restPost( options ) {
  *
  * @return {string}
  **/
-export function restDelete( options ) {
+export function restDelete(options) {
 	options = options || {};
 
 	options.method = 'DELETE';
 
-	apiFetch.use( apiFetch.createNonceMiddleware( window.dd4t3Vars.rest_nonce ) );
-	apiFetch.use( apiFetch.createRootURLMiddleware( window.dd4t3Vars.rest_url ) );
+	apiFetch.use(apiFetch.createNonceMiddleware(window.dd4t3Vars.rest_nonce));
+	apiFetch.use(apiFetch.createRootURLMiddleware(window.dd4t3Vars.rest_url));
 
-	return apiFetch( options );
+	return apiFetch(options);
 }

@@ -42,7 +42,7 @@ class Locale extends Base {
 				'search'       => __( 'Search', '404-to-301' ),
 			],
 			'buttons' => [
-				'save_changes' => __( 'Save Changes', 'wpmudev_vids' ),
+				'save_changes' => __( 'Save Changes', '404-to-301' ),
 				'apply'        => __( 'Apply', '404-to-301' ),
 			],
 		];
@@ -82,7 +82,7 @@ class Locale extends Base {
 			'descriptions' => [
 				'no_data'      => __( 'No data found.', '404-to-301' ),
 				/* translators: %s: Name of the current user. */
-				'install_dash' => __( '%s, welcome to Integrated Video Tutorials - the best tutorials plugin for WordPress. It looks like you don\'t have the WPMU DEV Dashboard.', 'wpmudev_vids' ),
+				'install_dash' => __( '%s, welcome to Integrated Video Tutorials - the best tutorials plugin for WordPress. It looks like you don\'t have the WPMU DEV Dashboard.', '404-to-301' ),
 			],
 		];
 	}
@@ -125,7 +125,7 @@ class Locale extends Base {
 				'settings_update_failed' => __( 'Oops! Something went wrong.', '404-to-301' ),
 			],
 			'descriptions' => [
-				'select_page'       => __( 'Select any WordPress page as a 404 page.', 'wpmudev_vids' ),
+				'select_page'       => __( 'Select any WordPress page as a 404 page.', '404-to-301' ),
 				'custom_url'        => __( 'Redirect 404 requests to a specific URL.', '404-to-301' ),
 				'disable_redirect'  => __( 'To disable redirect.', '404-to-301' ),
 				'override_settings' => __( 'You can override this by setting individual custom redirects from error logs list.', '404-to-301' ),

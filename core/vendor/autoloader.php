@@ -10,7 +10,7 @@ if ( file_exists( plugin_dir_path( DD404_PLUGIN_FILE ) . 'vendor/autoload.php' )
 	require_once plugin_dir_path( DD404_PLUGIN_FILE ) . '/vendor/autoload.php';
 } else {
 	// We need autoload.
-	wp_die( __( 'Autoloader is missing. Please run composer install if you are on development version.', 'ga_trans' ) );
+	wp_die( __( 'Autoloader is missing. Please run composer install if you are on development version.', '404-to-301' ) );
 }
 
 /**
