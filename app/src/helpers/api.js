@@ -29,7 +29,9 @@ export function restGet(options) {
 		options.path = options.path + '?' + urlParams;
 	}
 
-	return apiFetch(options);
+	return apiFetch(options).catch(error => {
+		return error;
+	});
 }
 
 /**
@@ -49,7 +51,9 @@ export function restPost(options) {
 	apiFetch.use(apiFetch.createNonceMiddleware(window.dd4t3Vars.rest_nonce));
 	apiFetch.use(apiFetch.createRootURLMiddleware(window.dd4t3Vars.rest_url));
 
-	return apiFetch(options);
+	return apiFetch(options).catch(error => {
+		return error;
+	});
 }
 
 /**
@@ -69,5 +73,7 @@ export function restDelete(options) {
 	apiFetch.use(apiFetch.createNonceMiddleware(window.dd4t3Vars.rest_nonce));
 	apiFetch.use(apiFetch.createRootURLMiddleware(window.dd4t3Vars.rest_url));
 
-	return apiFetch(options);
+	return apiFetch(options).catch(error => {
+		return error;
+	});
 }

@@ -1,13 +1,13 @@
 <template>
-	<form id="general-settings" @submit="submitForm" method="post">
+	<form id="general-settings" method="post">
 		<table class="form-table">
 			<tbody>
 				<tr>
 					<th>
-						<label for="redirectType">{{ $i18n.settings.labels.redirect_type }}</label>
+						<label for="redirect-type">{{ $i18n.settings.labels.redirect_type }}</label>
 					</th>
 					<td>
-						<select id="redirectType" v-model="redirectType">
+						<select id="redirect-type" v-model="redirectType">
 							<option value="301">{{ $i18n.settings.labels.redirect_301 }}</option>
 							<option value="302">{{ $i18n.settings.labels.redirect_302 }}</option>
 							<option value="307">{{ $i18n.settings.labels.redirect_307 }}</option>
@@ -17,10 +17,10 @@
 				</tr>
 				<tr>
 					<th>
-						<label for="redirectTo">{{ $i18n.settings.labels.redirect_to }}</label>
+						<label for="redirect-to">{{ $i18n.settings.labels.redirect_to }}</label>
 					</th>
 					<td>
-						<select id="redirectTo" v-model="redirectTo">
+						<select id="redirect-to" v-model="redirectTo">
 							<option value="page">{{ $i18n.settings.labels.existing_page }}</option>
 							<option value="link">{{ $i18n.settings.labels.custom_url }}</option>
 							<option value="none">{{ $i18n.settings.labels.no_redirect }}</option>
@@ -44,10 +44,10 @@
 				</tr>
 				<tr v-if="'page' === redirectTo">
 					<th>
-						<label for="redirectPage">{{ $i18n.settings.labels.redirect_page }}</label>
+						<label for="redirect-page">{{ $i18n.settings.labels.redirect_page }}</label>
 					</th>
 					<td>
-						<select id="redirectPage" v-model="redirectPage">
+						<select id="redirect-page" v-model="redirectPage">
 							<option value="page">{{ $i18n.settings.labels.existing_page }}</option>
 							<option value="link">{{ $i18n.settings.labels.custom_url }}</option>
 							<option value="none">{{ $i18n.settings.labels.no_redirect }}</option>
@@ -56,45 +56,44 @@
 				</tr>
 				<tr v-if="'link' === redirectTo">
 					<th>
-						<label for="redirectLink">{{ $i18n.settings.labels.custom_url }}</label>
+						<label for="redirect-link">{{ $i18n.settings.labels.custom_url }}</label>
 					</th>
 					<td>
-						<input type="url" id="redirectLink" v-model="redirectLink" />
+						<input type="url" id="redirect-link" v-model="redirectLink" />
 					</td>
 				</tr>
 				<tr>
 					<th>
-						<label for="redirectLog">{{ $i18n.settings.labels.log_errors }}</label>
+						<label for="redirect-log">{{ $i18n.settings.labels.log_errors }}</label>
 					</th>
 					<td>
-						<input type="checkbox" id="redirectLog" v-model="redirectLog" />
+						<input type="checkbox" id="redirect-log" v-model="redirectLog" />
 					</td>
 				</tr>
 				<tr>
 					<th>
-						<label for="disableGuessing">{{ $i18n.settings.labels.disable_guess }}</label>
+						<label for="disable-guessing">{{ $i18n.settings.labels.disable_guess }}</label>
 					</th>
 					<td>
-						<input type="checkbox" id="disableGuessing" v-model="disableGuessing" />
+						<input type="checkbox" id="disable-guessing" v-model="disableGuessing" />
 					</td>
 				</tr>
 				<tr>
 					<th>
-						<label for="excludePaths">{{ $i18n.settings.labels.exclude_paths }}</label>
+						<label for="exclude-paths">{{ $i18n.settings.labels.exclude_paths }}</label>
 					</th>
 					<td>
-						<textarea id="excludePaths" v-model="excludePaths"></textarea>
+						<textarea id="exclude-paths" v-model="excludePaths"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th colspan="2">
-						<input
-							type="submit"
-							name="submit"
+						<button
+							type="button"
 							class="button button-primary"
-							:value="$i18n.buttons.save_changes"
-							:disabled="waiting"
-						/>
+							:disabled="saving"
+							@click="submitForm"
+						>{{ saving ? $i18n.buttons.saving_changes : $i18n.buttons.save_changes }}</button>
 					</th>
 				</tr>
 			</tbody>
@@ -103,8 +102,6 @@
 </template>
 
 <script>
-import { restPost } from '@/helpers/api'
-
 export default {
 	/**
 	 * Current template name.
@@ -122,14 +119,121 @@ export default {
 	 */
 	data() {
 		return {
-			redirectType: this.$vars.settings.general.redirect_type,
-			redirectTo: this.$vars.settings.general.redirect_to,
-			redirectPage: this.$vars.settings.general.redirect_page,
-			redirectLink: this.$vars.settings.general.redirect_link,
-			redirectLog: this.$vars.settings.general.redirect_log,
-			disableGuessing: this.$vars.settings.general.disable_guessing,
-			excludePaths: this.$vars.settings.general.exclude_paths,
-			waiting: false
+			saving: false
+		}
+	},
+
+	computed: {
+		/**
+		 * Computed model for redirect type.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @returns {string}
+		 */
+		redirectType: {
+			get() {
+				return this.getOption('redirect_type', 'general', 307)
+			},
+			set(value) {
+				this.setOption('redirect_type', 'general', value)
+			}
+		},
+
+		/**
+		 * Computed model for redirect to.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @returns {string}
+		 */
+		redirectTo: {
+			get() {
+				return this.getOption('redirect_to', 'general', '')
+			},
+			set(value) {
+				this.setOption('redirect_to', 'general', value)
+			}
+		},
+
+		/**
+		 * Computed model for redirect page.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @returns {string}
+		 */
+		redirectPage: {
+			get() {
+				return this.getOption('redirect_page', 'general', '')
+			},
+			set(value) {
+				this.setOption('redirect_page', 'general', value)
+			}
+		},
+
+		/**
+		 * Computed model for redirect link.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @returns {string}
+		 */
+		redirectLink: {
+			get() {
+				return this.getOption('redirect_link', 'general', '')
+			},
+			set(value) {
+				this.setOption('redirect_link', 'general', value)
+			}
+		},
+
+		/**
+		 * Computed model for redirect log flag.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @returns {string}
+		 */
+		redirectLog: {
+			get() {
+				return this.getOption('redirect_log', 'general')
+			},
+			set(value) {
+				this.setOption('redirect_log', 'general', value)
+			}
+		},
+
+		/**
+		 * Computed model for redirect url guessing.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @returns {string}
+		 */
+		disableGuessing: {
+			get() {
+				return this.getOption('disable_guessing', 'general')
+			},
+			set(value) {
+				this.setOption('disable_guessing', 'general', value)
+			}
+		},
+
+		/**
+		 * Computed model for exclude url.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @returns {string}
+		 */
+		excludePaths: {
+			get() {
+				return this.getOption('exclude_paths', 'general')
+			},
+			set(value) {
+				this.setOption('exclude_paths', 'general', value)
+			}
 		}
 	},
 
@@ -139,62 +243,26 @@ export default {
 		 *
 		 * Validate the form before submitting it.
 		 *
-		 * @param e Event.
-		 *
 		 * @since 4.0.0
 		 *
 		 * @returns {boolean}
 		 */
-		submitForm: function(e) {
+		async submitForm() {
 			// Start waiting mode.
 			this.waiting = true
 
-			this.updateSettings()
+			let success = await this.saveOptions()
 
-			// Do not submit form.
-			e.preventDefault()
-		},
-
-		/**
-		 * Update the settings by sending the value to DB.
-		 *
-		 * Should handle the error response properly and disply
-		 * a generic error message.
-		 *
-		 * @since 4.0.0
-		 *
-		 * @returns {boolean}
-		 */
-		updateSettings: function() {
-			restPost({
-				path: 'settings',
-				data: {
-					group: 'general',
-					value: {
-						redirect_type: this.redirectType,
-						redirect_to: this.redirectTo,
-						redirect_page: this.redirectPage,
-						redirect_link: this.redirectLink,
-						redirect_log: this.redirectLog,
-						disable_guessing: this.disableGuessing,
-						exclude_paths: this.excludePaths
-					}
-				}
-			}).then(response => {
-				if (response.success === true) {
-					// Show success message.
-					this.$parent.showNotice()
-
-					// Update settings in DOM.
-					this.$parent.updateSettings(response.data, 'general')
-				} else {
-					// Show error message.
-					this.$parent.showNotice(false)
-				}
-
-				// End waiting mode.
-				this.waiting = false
+			// Show notice.
+			this.$root.$emit('showAdminNotice', {
+				type: success ? 'success' : 'error',
+				autoDismiss: true,
+				message: success
+					? this.$i18n.settings.notices.settings_updated
+					: this.$i18n.settings.notices.settings_update_failed
 			})
+
+			this.waiting = false
 		}
 	}
 }

@@ -43,6 +43,7 @@ class Locale extends Base {
 			],
 			'buttons' => [
 				'save_changes' => __( 'Save Changes', '404-to-301' ),
+				'saving_changes' => __('Saving..', '404-to-301'),
 				'apply'        => __( 'Apply', '404-to-301' ),
 			],
 		];

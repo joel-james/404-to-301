@@ -1,32 +1,31 @@
 <template>
-	<form id="email-settings" @submit="submitForm" method="post">
+	<form id="email-settings" method="post">
 		<table class="form-table">
 			<tbody>
 				<tr>
 					<th>
-						<label for="emailNotify">{{ $i18n.settings.labels.email_notification }}</label>
+						<label for="email-notify">{{ $i18n.settings.labels.email_notification }}</label>
 					</th>
 					<td>
-						<input type="checkbox" id="emailNotify" v-model="emailNotify" />
+						<input type="checkbox" id="email-notify" v-model="emailNotify" />
 					</td>
 				</tr>
 				<tr>
 					<th>
-						<label for="emailRecipient">{{ $i18n.settings.labels.email_address }}</label>
+						<label for="email-recipient">{{ $i18n.settings.labels.email_address }}</label>
 					</th>
 					<td>
-						<input type="email" id="emailRecipient" v-model="emailRecipient" :disabled="!emailNotify" />
+						<input type="email" id="email-recipient" v-model="emailRecipient" :disabled="!emailNotify" />
 					</td>
 				</tr>
 				<tr>
 					<th colspan="2">
-						<input
-							type="submit"
-							name="submit"
+						<button
+							type="button"
 							class="button button-primary"
-							:value="$i18n.buttons.save_changes"
-							:disabled="waiting"
-						/>
+							:disabled="saving"
+							@click="submitForm"
+						>{{ saving ? $i18n.buttons.saving_changes : $i18n.buttons.save_changes }}</button>
 					</th>
 				</tr>
 			</tbody>
@@ -54,9 +53,45 @@ export default {
 	 */
 	data() {
 		return {
-			emailNotify: this.$vars.settings.email.email_notify,
-			emailRecipient: this.$vars.settings.email.email_notify_address,
-			waiting: false
+			saving: false
+		}
+	},
+
+	computed: {
+		buttonText() {
+			return this.saving ? 'Loading..' : 'Save Changes'
+		},
+
+		/**
+		 * Computed model for email notification flag.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @returns {string}
+		 */
+		emailNotify: {
+			get() {
+				return this.getOption('email_notify', 'email')
+			},
+			set(value) {
+				this.setOption('email_notify', 'email', value)
+			}
+		},
+
+		/**
+		 * Computed model for email recipients.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @returns {string}
+		 */
+		emailRecipient: {
+			get() {
+				return this.getOption('email_notify_address', 'email', '')
+			},
+			set(value) {
+				this.setOption('email_notify_address', 'email', value)
+			}
 		}
 	},
 
@@ -66,56 +101,26 @@ export default {
 		 *
 		 * Validate the form before submitting it.
 		 *
-		 * @param e Event.
-		 *
 		 * @since 4.0.0
 		 *
 		 * @returns {boolean}
 		 */
-		submitForm: function(e) {
-			this.waiting = true
+		async submitForm() {
+			// Start waiting mode.
+			this.saving = true
 
-			this.updateSettings()
+			let success = await this.saveOptions()
 
-			// Do not submit form.
-			e.preventDefault()
-		},
-
-		/**
-		 * Update the settings by sending the value to DB.
-		 *
-		 * Should handle the error response properly and disply
-		 * a generic error message.
-		 *
-		 * @since 4.0.0
-		 *
-		 * @returns {boolean}
-		 */
-		updateSettings: function() {
-			restPost({
-				path: 'settings',
-				data: {
-					group: 'email',
-					value: {
-						email_notify: this.emailNotify,
-						email_notify_address: this.emailRecipient
-					}
-				}
-			}).then(response => {
-				if (response.success === true) {
-					// Show success message.
-					this.$parent.showNotice()
-
-					// Update settings in DOM.
-					this.$parent.updateSettings(response.data, 'email')
-				} else {
-					// Show error message.
-					this.$parent.showNotice(false)
-				}
-
-				// End waiting mode.
-				this.waiting = false
+			// Show notice.
+			this.$root.$emit('showAdminNotice', {
+				type: success ? 'success' : 'error',
+				autoDismiss: true,
+				message: success
+					? this.$i18n.settings.notices.settings_updated
+					: this.$i18n.settings.notices.settings_update_failed
 			})
+
+			this.saving = false
 		}
 	}
 }

@@ -30,7 +30,7 @@ export default {
 	 */
 	props: {
 		current: {
-			type: Number,
+			type: Object,
 			required: true
 		},
 		tabs: {
