@@ -42,9 +42,9 @@ class Locale extends Base {
 				'search'       => __( 'Search', '404-to-301' ),
 			],
 			'buttons' => [
-				'save_changes' => __( 'Save Changes', '404-to-301' ),
-				'saving_changes' => __('Saving..', '404-to-301'),
-				'apply'        => __( 'Apply', '404-to-301' ),
+				'save_changes'   => __( 'Save Changes', '404-to-301' ),
+				'saving_changes' => __( 'Saving..', '404-to-301' ),
+				'apply'          => __( 'Apply', '404-to-301' ),
 			],
 		];
 	}
@@ -103,6 +103,7 @@ class Locale extends Base {
 				'settings' => __( 'Settings', '404-to-301' ),
 				'general'  => __( 'General', '404-to-301' ),
 				'email'    => __( 'Email', '404-to-301' ),
+				'logs'     => __( 'Logs', '404-to-301' ),
 			],
 			'labels'       => [
 				'redirect_type'      => __( 'Redirect type', '404-to-301' ),

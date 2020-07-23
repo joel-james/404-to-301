@@ -157,7 +157,7 @@ class Assets extends Base {
 				apply_filters( '404_to_301_script_vars', $common_vars, $script )
 			);
 
-			error_log('test');
+			error_log( 'test' );
 
 			// Localized vars for the locale.
 			wp_localize_script( $script, 'dd4t3i18n', I18n::_get()->get_strings( $script ) );

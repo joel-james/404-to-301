@@ -59,6 +59,7 @@
 										<input type="checkbox" class="log-item" :value="row.id" v-model="selected" />
 									</th>
 									<td v-for="(value, key) in columns" :class="['column', key]" :key="key">{{ row[key] }}</td>
+
 								</tr>
 							</tbody>
 
